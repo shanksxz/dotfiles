@@ -22,5 +22,23 @@ return {
 				},
 			},
 		})
+		vim.api.nvim_set_keymap(
+			"n",
+			"<leader>ct",
+			":CloakToggle<CR>",
+			{ noremap = true, silent = true, desc = "Toggle cloak" }
+		)
+		vim.api.nvim_set_keymap(
+			"n",
+			"<leader>ce",
+			":CloakEnable<CR>",
+			{ noremap = true, silent = true, desc = "Enable cloak" }
+		)
+		vim.api.nvim_set_keymap(
+			"n",
+			"<leader>cd",
+			":CloakDisable<CR>",
+			{ noremap = true, silent = true, desc = "Disable cloak" }
+		)
 	end,
 }

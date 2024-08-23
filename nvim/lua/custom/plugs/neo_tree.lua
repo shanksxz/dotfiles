@@ -16,6 +16,14 @@ return {
 				filtered_items = {
 					visible = false,
 					hide_dotfiles = false,
+					never_show = {
+						".git",
+						"node_modules",
+						".DS_Store",
+					},
+					always_show = {
+						".env",
+					},
 				},
 			},
 			window = {

@@ -12,6 +12,12 @@ vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { noremap = true })
 vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { noremap = true })
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true })
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { noremap = true })
+vim.keymap.set("t", "jk", [[<C-\><C-n>]])
+vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]])
+vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]])
+vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]])
+vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]])
+vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]])
 
 -- move entire line up/down in both normal and visual mode
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true })
@@ -95,31 +101,40 @@ vim.keymap.set("n", "<leader>r", function()
 	local filename = vim.fn.expand("%")
 	local full_cmd = cmd .. " " .. filename
 
-	local pickers = require("telescope.pickers")
-	local finders = require("telescope.finders")
-	local conf = require("telescope.config").values
-
-	local output = vim.fn.systemlist(full_cmd)
-
-	pickers
-		.new({}, {
-			prompt_title = "Command Output",
-			finder = finders.new_table({
-				results = output,
-				entry_maker = function(entry)
-					return {
-						value = entry,
-						display = entry,
-						ordinal = entry,
-					}
-				end,
-			}),
-			sorter = conf.generic_sorter({}),
-			previewer = false, -- Disable the previewer
-			layout_config = {
-				width = 0.8,
-				height = 0.8,
-			},
-		})
-		:find()
+	vim.cmd('TermExec cmd="' .. full_cmd .. '" direction=vertical go_back=0')
 end, { noremap = true, silent = true, desc = "Run file" })
+
+-- vim.keymap.set("n", "<leader>r", function()
+-- 	local filetype = vim.bo.filetype
+-- 	local cmd = switch_case(filetype)
+-- 	local filename = vim.fn.expand("%")
+-- 	local full_cmd = cmd .. " " .. filename
+--
+-- 	local pickers = require("telescope.pickers")
+-- 	local finders = require("telescope.finders")
+-- 	local conf = require("telescope.config").values
+--
+-- 	local output = vim.fn.systemlist(full_cmd)
+--
+-- 	pickers
+-- 		.new({}, {
+-- 			prompt_title = "Command Output",
+-- 			finder = finders.new_table({
+-- 				results = output,
+-- 				entry_maker = function(entry)
+-- 					return {
+-- 						value = entry,
+-- 						display = entry,
+-- 						ordinal = entry,
+-- 					}
+-- 				end,
+-- 			}),
+-- 			sorter = conf.generic_sorter({}),
+-- 			previewer = false, -- Disable the previewer
+-- 			layout_config = {
+-- 				width = 0.8,
+-- 				height = 0.8,
+-- 			},
+-- 		})
+-- 		:find()
+-- end, { noremap = true, silent = true, desc = "Run file" })

@@ -44,6 +44,7 @@ return {
 				"clangd",
 				"rust_analyzer",
 				"jsonls",
+				"jdtls",
 			}
 
 			for _, server in ipairs(lang_servers) do
