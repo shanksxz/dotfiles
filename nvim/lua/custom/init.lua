@@ -101,7 +101,7 @@ vim.keymap.set("n", "<leader>r", function()
 	local filename = vim.fn.expand("%")
 	local full_cmd = cmd .. " " .. filename
 
-	vim.cmd('TermExec cmd="' .. full_cmd .. '" direction=vertical go_back=0')
+	vim.cmd('TermExec cmd="' .. full_cmd .. '" direction=float go_back=0')
 end, { noremap = true, silent = true, desc = "Run file" })
 
 -- vim.keymap.set("n", "<leader>r", function()
