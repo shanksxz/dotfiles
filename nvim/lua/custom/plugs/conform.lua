@@ -2,31 +2,43 @@ return {
 	"stevearc/conform.nvim",
 
 	config = function()
-		require("conform").setup({
+		local conform = require("conform")
 
-			vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, {
-				noremap = true,
-				desc = "Format current buffer",
-			}),
-
+		conform.setup({
 			format_on_save = {
 				timeout_ms = 500,
-				lsp_format = "fallbac",
+				lsp_format = "fallback",
 			},
 
 			formatters_by_ft = {
 				lua = { "stylua" },
-				rust = { "rustfmt", lsp_format = "fallback" },
-			},
-
-			-- setup biome for mostly everything
-			formatters = {
-				biome = {
-					exe = "biome",
-					args = { "-" },
-					stdin = true,
-				},
+				svelte = { { "prettierd", "prettier", stop_after_first = true } },
+				astro = { { "prettierd", "prettier", stop_after_first = true } },
+				javascript = { { "prettierd", "prettier", stop_after_first = true } },
+				typescript = { { "prettierd", "prettier", stop_after_first = true } },
+				javascriptreact = { { "prettierd", "prettier", stop_after_first = true } },
+				typescriptreact = { { "prettierd", "prettier", stop_after_first = true } },
+				json = { { "prettierd", "prettier", stop_after_first = true } },
+				graphql = { { "prettierd", "prettier", stop_after_first = true } },
+				java = { "google-java-format" },
+				markdown = { { "prettierd", "prettier", stop_after_first = true } },
+				html = { "htmlbeautifier" },
+				bash = { "beautysh" },
+				rust = { "rustfmt" },
+				yaml = { "yamlfix" },
+				toml = { "taplo" },
+				css = { { "prettierd", "prettier", stop_after_first = true } },
+				sh = { "shellcheck" },
+				go = { "gofmt" },
 			},
 		})
+
+		vim.keymap.set({ "n", "v" }, "<leader>cf", function()
+			conform.format({
+				lsp_fallback = true,
+				async = false,
+				timeout_ms = 1000,
+			})
+		end)
 	end,
 }
