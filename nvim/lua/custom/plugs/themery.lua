@@ -7,7 +7,8 @@ return {
 				"gruvbox",
 				"tokyonight",
 				"catppuccin",
-			},
+        "gruvbox-light",
+      },
 			livepreview = true,
 		})
 	end,
