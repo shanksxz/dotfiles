@@ -1,7 +1,6 @@
 local lspconfig = require("lspconfig")
 local default_capabilities = require("blink.cmp").get_lsp_capabilities()
 
--- Setup basic diagnostic signs
 local signs = {
 	Error = "E",
 	Warn = "W",
@@ -13,7 +12,6 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
--- Configure servers
 lspconfig.lua_ls.setup({
 	capabilities = default_capabilities,
 	settings = {
@@ -38,15 +36,14 @@ lspconfig.gopls.setup({
 	filetypes = { "go", "gomod" },
 })
 
--- Setup other servers with default configuration
 local servers = {
-	"tsserver",
+	"ts_ls",
 	"tailwindcss",
 	"clangd",
 	"rust_analyzer",
 	"jsonls",
 	"jdtls",
-	"bufls",
+	"buf_ls",
 }
 
 for _, server in ipairs(servers) do
