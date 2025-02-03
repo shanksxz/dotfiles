@@ -10,8 +10,10 @@ return {
     lazy = false,
     dependencies = {
       "saghen/blink.cmp",
+      "williamboman/mason-lspconfig.nvim",
     },
     config = load_config("tools.nvim-lsp"),
+    event = { "BufReadPre", "BufNewFile" },
   },
   {
     "saghen/blink.cmp",
@@ -22,32 +24,44 @@ return {
     event = { "InsertEnter" },
   },
   {
+    'nvimdev/lspsaga.nvim',
+    config = function()
+      require('lspsaga').setup({})
+    end,
+    event = 'LspAttach',
+  },
+  {
+    "williamboman/mason.nvim",
+    config = load_config("tools.mason"),
+    cmd = "Mason",
+  },
+  {
     "zbirenbaum/copilot.lua",
     dependencies = { "giuxtaposition/blink-cmp-copilot" },
     config = load_config("tools.copilot"),
     event = "InsertEnter",
   },
   {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    dependencies = { 'zbirenbaum/copilot.lua' },
-    branch = 'main',
-    build = 'make tiktoken', -- only on Linux
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = { "zbirenbaum/copilot.lua" },
+    branch = "main",
+    build = "make tiktoken", -- only on Linux
     cmd = {
-      'CopilotChat',
-      'CopilotChatToggle',
-      'CopilotChatDocs',
-      'CopilotChatExplain',
-      'CopilotChatFix',
-      'CopilotChatFixDiagnostic',
-      'CopilotChatCommit',
-      'CopilotChatCommitStaged',
-      'CopilotChatLoad',
-      'CopilotChatOptimize',
-      'CopilotChatReview',
-      'CopilotChatSave',
-      'CopilotChatTests',
+      "CopilotChat",
+      "CopilotChatToggle",
+      "CopilotChatDocs",
+      "CopilotChatExplain",
+      "CopilotChatFix",
+      "CopilotChatFixDiagnostic",
+      "CopilotChatCommit",
+      "CopilotChatCommitStaged",
+      "CopilotChatLoad",
+      "CopilotChatOptimize",
+      "CopilotChatReview",
+      "CopilotChatSave",
+      "CopilotChatTests",
     },
-    config = load_config('tools.copilot-chat'),
+    config = load_config("tools.copilot-chat"),
   },
   {
     "folke/flash.nvim",
@@ -214,16 +228,16 @@ return {
     config = load_config("tools.neo-tree"),
   },
   {
-    'echasnovski/mini.pairs',
-    version = '*',
-    config = load_config('tools.pairs'),
+    "echasnovski/mini.pairs",
+    version = "*",
+    config = load_config("tools.pairs"),
     event = { "InsertEnter" },
   },
   {
-    'echasnovski/mini.surround',
-    version = '*',
-    config = load_config('tools.surround'),
-    event = { 'BufReadPost', 'BufNewFile' },
+    "echasnovski/mini.surround",
+    version = "*",
+    config = load_config("tools.surround"),
+    event = { "BufReadPost", "BufNewFile" },
   },
   -- lazy.nvim
   {
@@ -234,5 +248,5 @@ return {
       "MunifTanjim/nui.nvim",
     },
     config = load_config("ui.noice"),
-  }
+  },
 }

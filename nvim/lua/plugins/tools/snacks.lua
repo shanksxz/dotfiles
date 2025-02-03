@@ -4,7 +4,7 @@ Snacks.setup({
     enabled = true,
     duration = 10,
     easing = "linear",
-    fps = 144,
+    fps = 60,
   },
   dashboard = { enabled = true },
   indent = {
