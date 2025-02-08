@@ -1,5 +1,5 @@
 local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
+  local options = { noremap = true }
   if opts then
     options = vim.tbl_extend("force", options, opts)
   end
@@ -16,7 +16,7 @@ map("n", "<C-l>", ":wincmd l<CR>", { desc = "Move to right window" })
 map("n", "<leader>sh", ":split<CR>", { desc = "Split horizontally" })
 map("n", "<leader>sv", ":vsplit<CR>", { desc = "Split vertically" })
 map("n", "<leader>sc", ":close<CR>", { desc = "Close split" })
-map("n", "<leader>so", ":only<CR>", { desc = "Close all splits except current" })
+map("n", "<leader>scc", ":only<CR>", { desc = "Close all splits except current" })
 
 map("n", "<C-Left>", ":vertical resize -5<CR>", { desc = "Decrease window width" })
 map("n", "<C-Right>", ":vertical resize +5<CR>", { desc = "Increase window width" })

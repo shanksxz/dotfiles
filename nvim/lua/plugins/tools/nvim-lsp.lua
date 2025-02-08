@@ -30,7 +30,6 @@ local ensure_installed = {
     "rust_analyzer",
     "jsonls",
     "jdtls",
-    "buf_ls",
 }
 
 mason_lspconfig.setup({

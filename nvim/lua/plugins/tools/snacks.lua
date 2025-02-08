@@ -1,83 +1,137 @@
 local Snacks = require("snacks")
 Snacks.setup({
-  animate = {
-    enabled = true,
-    duration = 10,
-    easing = "linear",
-    fps = 60,
-  },
-  dashboard = { enabled = true },
-  indent = {
-    enabled = true,
-    priority = 1,
-    hl = {
-      "SnacksIndent1",
-      "SnacksIndent2",
-      "SnacksIndent3",
-      "SnacksIndent4",
-      "SnacksIndent5",
-      "SnacksIndent6",
-      "SnacksIndent7",
-      "SnacksIndent8",
-    },
-  },
-  notifier = {
-    enabled = true,
-    timeout = 3000,
-  },
-  words = { enabled = true },
-  styles = {
-    notification = {},
-  },
+	scroll = {
+		animate = {
+			duration = { step = 15, total = 250 },
+			easing = "linear",
+		},
+		animate_repeat = {
+			delay = 100,
+			duration = { step = 5, total = 50 },
+			easing = "linear",
+		},
+		filter = function(buf)
+			return vim.g.snacks_scroll ~= false
+				and vim.b[buf].snacks_scroll ~= false
+				and vim.bo[buf].buftype ~= "terminal"
+		end,
+	},
+	animate = {
+		enabled = true,
+		duration = 10,
+		easing = "linear",
+		fps = 60,
+	},
+	dashboard = { enabled = true },
+	indent = {
+		enabled = true,
+		priority = 1,
+		hl = {
+			"SnacksIndent1",
+			"SnacksIndent2",
+			"SnacksIndent3",
+			"SnacksIndent4",
+			"SnacksIndent5",
+			"SnacksIndent6",
+			"SnacksIndent7",
+			"SnacksIndent8",
+		},
+	},
+	notifier = {
+		enabled = true,
+		timeout = 3000,
+	},
+	words = { enabled = true },
+	styles = {
+		notification = {},
+	},
 })
 
 vim.api.nvim_create_autocmd("User", {
-  pattern = "VeryLazy",
-  callback = function()
-    Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-    Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-    Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-    Snacks.toggle.diagnostics():map("<leader>ud")
-    Snacks.toggle.line_number():map("<leader>ul")
-    Snacks.toggle
-        .option("conceallevel", {
-          off = 0,
-          on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2
-        })
-        :map("<leader>uc")
-    Snacks.toggle.treesitter():map("<leader>uT")
-    Snacks.toggle
-        .option("background", {
-          off = "light",
-          on = "dark",
-          name = "Dark Background"
-        })
-        :map("<leader>ub")
-    Snacks.toggle.inlay_hints():map("<leader>uh")
-    Snacks.toggle.indent():map("<leader>ug")
-    Snacks.toggle.dim():map("<leader>uD")
+	pattern = "VeryLazy",
+	callback = function()
+		Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+		Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+		Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+		Snacks.toggle.diagnostics():map("<leader>ud")
+		Snacks.toggle.line_number():map("<leader>ul")
+		Snacks.toggle
+			.option("conceallevel", {
+				off = 0,
+				on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
+			})
+			:map("<leader>uc")
+		Snacks.toggle.treesitter():map("<leader>uT")
+		Snacks.toggle
+			.option("background", {
+				off = "light",
+				on = "dark",
+				name = "Dark Background",
+			})
+			:map("<leader>ub")
+		Snacks.toggle.inlay_hints():map("<leader>uh")
+		Snacks.toggle.indent():map("<leader>ug")
+		Snacks.toggle.dim():map("<leader>uD")
 
-    -- Setup debug globals
-    _G.dd = function(...) Snacks.debug.inspect(...) end
-    _G.bt = function() Snacks.debug.backtrace() end
-    vim.print = _G.dd
-  end,
+		-- Setup debug globals
+		_G.dd = function(...)
+			Snacks.debug.inspect(...)
+		end
+		_G.bt = function()
+			Snacks.debug.backtrace()
+		end
+		vim.print = _G.dd
+	end,
 })
 
-vim.keymap.set("n", "<leader>z", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
-vim.keymap.set("n", "<leader>Z", function() Snacks.zen.zoom() end, { desc = "Toggle Zoom" })
-vim.keymap.set("n", "<leader>.", function() Snacks.scratch() end, { desc = "Toggle Scratch Buffer" })
-vim.keymap.set("n", "<leader>S", function() Snacks.scratch.select() end, { desc = "Select Scratch Buffer" })
-vim.keymap.set("n", "<leader>n", function() Snacks.notifier.show_history() end, { desc = "Notification History" })
-vim.keymap.set("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
-vim.keymap.set("n", "<leader>cR", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
-vim.keymap.set({ "n", "v" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git Browse" })
-vim.keymap.set("n", "<leader>gb", function() Snacks.git.blame_line() end, { desc = "Git Blame Line" })
-vim.keymap.set("n", "<leader>gf", function() Snacks.lazygit.log_file() end, { desc = "Lazygit Current File History" })
-vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
-vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit.log() end, { desc = "Lazygit Log (cwd)" })
-vim.keymap.set("n", "<leader>un", function() Snacks.notifier.hide() end, { desc = "Dismiss All Notifications" })
-vim.keymap.set("n", "<c-/>", function() Snacks.terminal() end, { desc = "Toggle Terminal" })
-vim.keymap.set("n", "<c-_>", function() Snacks.terminal() end, { desc = "which_key_ignore" })
-vim.keymap.set({ "n", "t" }, "]]", function() Snacks.words.jump(vim.v.count1) end, { desc = "Next Reference" })
-vim.keymap.set({ "n", "t" }, "[[", function() Snacks.words.jump(-vim.v.count1) end, { desc = "Prev Reference" })
+vim.keymap.set("n", "<leader>z", function()
+	Snacks.zen()
+end, { desc = "Toggle Zen Mode" })
+vim.keymap.set("n", "<leader>Z", function()
+	Snacks.zen.zoom()
+end, { desc = "Toggle Zoom" })
+vim.keymap.set("n", "<leader>.", function()
+	Snacks.scratch()
+end, { desc = "Toggle Scratch Buffer" })
+vim.keymap.set("n", "<leader>S", function()
+	Snacks.scratch.select()
+end, { desc = "Select Scratch Buffer" })
+vim.keymap.set("n", "<leader>n", function()
+	Snacks.notifier.show_history()
+end, { desc = "Notification History" })
+vim.keymap.set("n", "<leader>bd", function()
+	Snacks.bufdelete()
+end, { desc = "Delete Buffer" })
+vim.keymap.set("n", "<leader>cR", function()
+	Snacks.rename.rename_file()
+end, { desc = "Rename File" })
+vim.keymap.set({ "n", "v" }, "<leader>gB", function()
+	Snacks.gitbrowse()
+end, { desc = "Git Browse" })
+vim.keymap.set("n", "<leader>gb", function()
+	Snacks.git.blame_line()
+end, { desc = "Git Blame Line" })
+vim.keymap.set("n", "<leader>gf", function()
+	Snacks.lazygit.log_file()
+end, { desc = "Lazygit Current File History" })
+vim.keymap.set("n", "<leader>gg", function()
+	Snacks.lazygit()
+end, { desc = "Lazygit" })
+vim.keymap.set("n", "<leader>gl", function()
+	Snacks.lazygit.log()
+end, { desc = "Lazygit Log (cwd)" })
+vim.keymap.set("n", "<leader>un", function()
+	Snacks.notifier.hide()
+end, { desc = "Dismiss All Notifications" })
+vim.keymap.set("n", "<c-/>", function()
+	Snacks.terminal()
+end, { desc = "Toggle Terminal" })
+vim.keymap.set("n", "<c-_>", function()
+	Snacks.terminal()
+end, { desc = "which_key_ignore" })
+vim.keymap.set({ "n", "t" }, "]]", function()
+	Snacks.words.jump(vim.v.count1)
+end, { desc = "Next Reference" })
+vim.keymap.set({ "n", "t" }, "[[", function()
+	Snacks.words.jump(-vim.v.count1)
+end, { desc = "Prev Reference" })

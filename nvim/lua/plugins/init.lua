@@ -25,9 +25,7 @@ return {
   },
   {
     'nvimdev/lspsaga.nvim',
-    config = function()
-      require('lspsaga').setup({})
-    end,
+    config = load_config("tools.lspsaga"),
     event = 'LspAttach',
   },
   {
@@ -63,28 +61,28 @@ return {
     },
     config = load_config("tools.copilot-chat"),
   },
-  {
-    "folke/flash.nvim",
-    config = load_config("tools.flash"),
-    keys = {
-      {
-        "s",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").jump()
-        end,
-        desc = "Flash",
-      },
-      {
-        "S",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").treesitter()
-        end,
-        desc = "Flash Treesitter",
-      },
-    },
-  },
+  -- {
+  --   "folke/flash.nvim",
+  --   config = load_config("tools.flash"),
+  --   keys = {
+  --     {
+  --       "ss",
+  --       mode = { "n", "x", "o" },
+  --       function()
+  --         require("flash").jump()
+  --       end,
+  --       desc = "Flash",
+  --     },
+  --     {
+  --       "S",
+  --       mode = { "n", "x", "o" },
+  --       function()
+  --         require("flash").treesitter()
+  --       end,
+  --       desc = "Flash Treesitter",
+  --     },
+  --   },
+  -- },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -248,5 +246,5 @@ return {
       "MunifTanjim/nui.nvim",
     },
     config = load_config("ui.noice"),
-  },
+  }
 }

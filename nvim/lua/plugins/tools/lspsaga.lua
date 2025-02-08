@@ -3,6 +3,7 @@ local map = require("core.mappings")
 
 lspsaga.setup({
 	ui = {
+    code_action = " ",
 		border = "rounded",
 		colors = {
 			normal_bg = "#1d1536",
@@ -13,6 +14,11 @@ lspsaga.setup({
 		max_height = 0.6,
 		open_link = "gx",
 	},
+  lightbulb = {
+    enabled = false,
+    sign = true,
+    debounce = 10,
+  },
 	code_action = {
 		num_shortcut = true,
 		show_server_name = true,
@@ -60,7 +66,7 @@ lspsaga.setup({
 
 map("n", "gd", "<cmd>Lspsaga goto_definition<CR>", { desc = "Go to definition" })
 map("n", "gr", "<cmd>Lspsaga finder<CR>", { desc = "Go to references" })
-map("n", "K", "<cmd>Lspsaga hover_doc<CR>", { desc = "Show documentation" })
+map("n", "K", "<cmd>Lspsaga hover_dotruetruec<CR>", { desc = "Show documentation" })
 map("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", { desc = "Rename symbol" })
 map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { desc = "Code actions" })
 map("n", "gp", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek definition" })
