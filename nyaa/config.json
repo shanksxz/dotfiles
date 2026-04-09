@@ -1,0 +1,8 @@
+{
+  "downloader": "qbittorrent",
+  "qbittorrent": {
+    "host": "http://localhost:8080",
+    "username": "admin",
+    "password": "-----"
+  }
+}
