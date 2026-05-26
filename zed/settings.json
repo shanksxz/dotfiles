@@ -1,0 +1,285 @@
+{
+  "cli_default_open_behavior": "existing_window",
+  "agent": {
+    "tool_permissions": {
+      "tools": {
+        "terminal": {
+          "default": "allow",
+        },
+      },
+    },
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "gpt-5.5",
+      "enable_thinking": true,
+      "effort": "high",
+    },
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "git_panel": {
+    "dock": "left",
+    "tree_view": true,
+  },
+  "buffer_line_height": "comfortable",
+  "buffer_font_weight": 550.0,
+  "agent_servers": {
+    "codex-acp": {
+      "type": "registry"
+    },
+    "opencode": {
+      "type": "registry",
+    },
+    "cursor": {
+      "type": "registry",
+    },
+  },
+  "edit_predictions": {
+    "provider": "zed",
+  },
+  "tabs": {
+    "git_status": false,
+  },
+  "icon_theme": {
+    "mode": "light",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
+  "minimap": {
+    "show": "auto",
+  },
+  "autosave": "on_focus_change",
+  "ui_font_size": 18.0,
+  "buffer_font_size": 18.0,
+  "theme": {
+    "mode": "dark",
+    "light": "Gruvbox Light",
+    "dark": "Tokyo Night Dark",
+  },
+  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "ui_font_family": "JetBrainsMono Nerd Font Mono",
+  "relative_line_numbers": "enabled",
+  "tab_bar": {
+    "show": true,
+  },
+  "scrollbar": {
+    "show": "auto",
+  },
+  "vim_mode": true,
+  "project_panel": {
+    "show_diagnostics": "errors",
+    "button": true,
+    "auto_fold_dirs": true,
+    "dock": "right",
+    "scrollbar": {
+      "show": "auto",
+    },
+    "auto_reveal_entries": true,
+    "folder_icons": true,
+    "default_width": 240,
+    "git_status": true,
+  },
+  "indent_guides": {
+    "enabled": true,
+  },
+  "centered_layout": {
+    "left_padding": 0.15,
+    "right_padding": 0.15,
+  },
+  "code_lens": "on",
+
+  // ── INLAY HINTS (global) ────────────────────────────────────────────
+  // NEW: enable inlay hints globally so Go (and TS) can use them.
+  // Individual languages can still override.
+  "inlay_hints": {
+    "enabled": true,
+    "show_parameter_hints": true,
+    "show_type_hints": true,
+    "show_other_hints": true,
+  },
+
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always"
+          }
+        },
+        "javascript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always"
+          }
+        }
+      },
+      "enable_lsp_tasks": true
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "classAttributes": ["class", "className", "ngClass", "styles"],
+      },
+    },
+    "golangci-lint": {
+      "initialization_options": {
+        "command": [
+          "golangci-lint",
+          "run",
+          "--output.json.path=stdout",
+          "--show-stats=false",
+          "--output.text.path=",
+          "--allow-parallel-runners",
+        ],
+      },
+    },
+    "gopls": {
+      "initialization_options": {
+        // ── CODE LENSES ──────────────────────────────────────────────
+        // same as before, all useful ones on
+        "codelenses": {
+          "test": true,
+          "generate": true,
+          "regenerate_cgo": true,
+          "tidy": true,
+          "upgrade_dependency": true,
+          "vendor": true,
+          // NEW: shows gc compiler optimization decisions inline (escape
+          // analysis, inlining). Toggle with "editor: toggle code lens"
+          "gc_details": false, // set true when you want to profile/optimize
+        },
+
+        // ── INLAY HINTS ──────────────────────────────────────────────
+        // NEW: full set. Zed sends these to gopls at startup.
+        // All are off by default in gopls — Zed enables a subset;
+        // this makes them all explicit so you control each one.
+        "hints": {
+          "assignVariableTypes": true, // i/* int*/, j/* int*/ := 0, 1
+          "compositeLiteralFields": true, // {/*in: */"hello"}
+          "compositeLiteralTypes": true, // /*struct{...}*/{"hello"}
+          "constantValues": true, // KindNone/* = 0*/
+          "functionTypeParameters": true, // myFoo/*[int, string]*/(...)
+          "parameterNames": true, // parseInt(/*str:*/ "123", ...)
+          "rangeVariableTypes": true, // for k/*int*/, v/*string*/ := range
+          // NEW in recent gopls: shows "// ignore error" where you silently
+          // discard errors — great for catching lazy error handling
+          "ignoredError": true,
+        },
+
+        // ── ANALYSES ─────────────────────────────────────────────────
+        // NEW: extra static analysis passes on top of defaults.
+        "analyses": {
+          "unusedparams": true, // catch unused function parameters
+          "unusedvariable": true, // stricter than compiler's unused var
+          "unusedwrite": true, // catch writes to variables never read
+          "useany": true, // suggest `any` over `interface{}`
+          "shadow": false, // variable shadowing — noisy, off by default
+          "nilness": true, // nil pointer dereference paths
+          "httpresponse": true, // forgetting to close http.Response.Body
+          "loopclosure": true, // classic loop variable capture bug (pre-Go1.22)
+        },
+
+        // ── DIAGNOSTICS ───────────────────────────────────────────────
+        // NEW: staticcheck is a powerful linter suite built into gopls.
+        // golangci-lint catches some things; staticcheck catches others.
+        "staticcheck": true,
+
+        // NEW: use gofumpt (stricter gofmt) for formatting.
+        // Requires: go install mvdan.cc/gofumpt@latest
+        // Remove if you don't have/want gofumpt.
+        "gofumpt": true,
+      },
+    },
+  },
+
+  "languages": {
+    "TypeScript": {
+      "inlay_hints": {
+        "enabled": true,
+        "show_parameter_hints": false,
+        "show_other_hints": true,
+        "show_type_hints": true,
+      },
+      "formatter": "language_server",
+      "format_on_save": "on",
+      "language_servers": ["vtsls", "biome", "!eslint"],
+    },
+    "TSX": {
+      "formatter": "language_server",
+      "format_on_save": "on",
+      "language_servers": ["vtsls", "biome", "!eslint"],
+    },
+    "JavaScript": {
+      "formatter": "language_server",
+      "format_on_save": "on",
+      "language_servers": ["vtsls", "biome", "!eslint"],
+    },
+    "JSON": {
+      "formatter": "language_server",
+      "format_on_save": "on",
+      "language_servers": ["biome"],
+    },
+    "Go": {
+      "format_on_save": "on",
+      "language_servers": ["gopls", "golangci-lint"],
+
+      // NEW: Go-specific inlay hint overrides.
+      // The global hints above already cover Go, but explicit here
+      // in case you ever want to tune Go separately from other langs.
+      "inlay_hints": {
+        "enabled": true,
+        "show_parameter_hints": true,
+        "show_type_hints": true,
+        "show_other_hints": true,
+      },
+
+      // NEW: Go files should use tabs, not spaces (per gofmt convention)
+      "hard_tabs": true,
+      "tab_size": 4,
+    },
+
+    // NEW: go.mod and go.sum are distinct Zed languages — good to be explicit
+    "Go Mod": {
+      "format_on_save": "on",
+    },
+  },
+
+  "file_types": {
+    "Dockerfile": ["Dockerfile", "Dockerfile.*"],
+    "JSON": ["json", "jsonc", "*.code-snippets"],
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    "**/out",
+    "**/dist",
+    "**/.husky",
+    "**/.turbo",
+    "**/.vscode-test",
+    "**/.vscode",
+    "**/.next",
+    "**/.storybook",
+    "**/.tap",
+    "**/.nyc_output",
+    "**/report",
+    "**/node_modules",
+    // NEW: common Go build artifacts and caches
+    "**/vendor", // remove this if you DO want vendor/ indexed
+    "**/__debug_bin*", // Delve debug binaries
+  ],
+  "outline_panel": {
+    "dock": "right",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+}
