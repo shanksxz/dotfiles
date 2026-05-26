@@ -7,6 +7,8 @@ return {
         "tokyonight",
         "gruvbox",
         "catppuccin",
+        "discord",
+        "discord-onyx",
       },
       livePreview = true,
     })

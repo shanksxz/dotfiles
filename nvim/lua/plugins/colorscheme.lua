@@ -28,4 +28,15 @@ return {
       })
     end,
   },
+  {
+    "shanksxz/discord-theme.nvim",
+    priority = 1000,
+    config = function()
+      require("discord_theme").setup({
+        variant = "dark",
+        integrations = true,
+        overrides = {},
+      })
+    end,
+  },
 }
