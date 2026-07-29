@@ -1,4 +1,4 @@
-vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = false })
-vim.api.nvim_set_keymap("n", "L", "$", { noremap = false })
-vim.api.nvim_set_keymap("n", "H", "^", { noremap = false })
-vim.api.nvim_set_keymap("n", "==", "ggVG", { noremap = false })
+local map = vim.keymap.set
+
+map("i", "jj", "<Esc>", { desc = "Escape" })
+map("n", "==", "ggVG", { desc = "Select all" })

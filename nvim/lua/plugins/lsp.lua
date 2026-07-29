@@ -3,11 +3,27 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        gopls = {
-          should_attach = function(bufnr)
-            local name = vim.api.nvim_buf_get_name(bufnr)
-            return name:match("^file://") or not name:match("://")
+        qmlls = {
+          cmd = { "/usr/bin/qmlls6" },
+          on_attach = function(client)
+            client.server_capabilities.semanticTokensProvider = nil
           end,
+        },
+        gopls = {
+          settings = {
+            gopls = {
+              semanticTokens = true,
+            },
+          },
+          capabilities = {
+            textDocument = {
+              semanticTokens = {
+                multilineTokenSupport = false,
+                tokenModifiers = {},
+                tokenTypes = {},
+              },
+            },
+          },
         },
       },
     },

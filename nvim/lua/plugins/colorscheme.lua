@@ -1,18 +1,21 @@
+-- All themes are lazy. LazyVim/Themery load the active one via :colorscheme.
 return {
   {
     "ellisonleao/gruvbox.nvim",
+    lazy = true,
   },
   {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
   },
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    lazy = true,
   },
   {
     "datsfilipe/vesper.nvim",
+    lazy = true,
     config = function()
       require("vesper").setup({
         transparent = false,
@@ -30,13 +33,25 @@ return {
   },
   {
     "shanksxz/discord-theme.nvim",
-    priority = 1000,
+    lazy = true,
     config = function()
       require("discord_theme").setup({
         variant = "dark",
         integrations = true,
         overrides = {},
       })
+    end,
+  },
+  {
+    "tiagovla/tokyodark.nvim",
+    lazy = true,
+    opts = {},
+  },
+  {
+    "olivercederborg/poimandres.nvim",
+    lazy = true,
+    config = function()
+      require("poimandres").setup({})
     end,
   },
 }

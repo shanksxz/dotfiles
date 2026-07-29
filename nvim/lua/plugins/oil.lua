@@ -1,6 +1,11 @@
 return {
   "stevearc/oil.nvim",
+  -- Oil docs recommend not lazy-loading when used as default file explorer.
+  lazy = false,
   dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+  keys = {
+    { "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
+  },
   config = function()
     require("oil").setup({
       default_file_explorer = true,
@@ -25,6 +30,5 @@ return {
         },
       },
     })
-    vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
   end,
 }
